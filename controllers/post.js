@@ -16,7 +16,8 @@ const newPost = async (req, res) => {
     const analysis = [{
       crop:disease[disease.length-2],
       disease:disease[disease.length-1],
-      solution:[diseaseSolutionPair[disease[disease.length-1]][0]]
+      // solution:[diseaseSolutionPair[disease[disease.length-1]][0]]
+      solution:['test']
     }]
     const post = new Post({
       img,
