@@ -1,0 +1,77 @@
+Backend:
+Middleware- checks if user is authenticated, and if yes then finds userId from jwt and adds it in request
+
+Auth:-
+UserSchema:
+info: Object(firebase user object)
+posts:[String]
+createdAt: Date
+
+ExpertSchema:
+info: Object(firebase user object)
+name: String
+details:{
+qualification: String,
+Experience: String,
+}
+reviews:[String]
+articles: [String]
+createdAt: Date
+
+Routes - /auth:
+/(POST) - creating user (firebase user object n current date in body)
+/expert (POST) - making user an expert (userId and details in body)
+/:id(GET) - Fetch user with id 
+
+Comment:
+CommentSchema:
+message: String
+type: String (expert/farmer/creator)
+likes: [String]
+creator: String
+
+routes(/comment):
+/like/:id(PATCH) - appends userId from middleware to comment.likes
+/dislike/:id(PATCH) - removes userId from middleware from comment.likes
+
+
+Post:
+PostSchema:
+img: String,
+description: String
+createdAt: Date
+reviews: {
+approved: [String]
+disapproved: [String]
+}
+creator: String
+comments: [String]
+likes: [String]
+analysis:[{
+disease: String
+solution:[String]
+}]
+tags: [String]
+
+Routes (/post):
+/(POST) - create a post with img, description, date from body, creator id from middleware and then disease,solution and tags after analysis
+/find/:id(GET) - get post from id
+/(GET) - fetch all posts, sort using some algorithm on the bases of reviews, likes, comments
+/:id(DELETE) - delete post of that id
+/like/:id(PATCH) - appends user id from middleware to post.likes
+/unlike/:id(PATCH) - deletes user id from middleware from post.likes
+/comments/:id(POST) - create a comment (use id from middleware as comments creator and also to assign the comment.type ie. if id from middleware==post.creator then comment.type= creator else if Expert.findbyId(middleware waala id) !==null then comment.type = expert else comment.type= farmer by default ) and append its id in post.comments 
+/comments/(GET) - fetch all the comments by the ids in post.comments and sort by prioritising their type- (expert>creator>farmer)
+the endpoints below will also check if the Expert.findById(id from middleware) != null to make sure that request is sent by an expert and then also append id of the post in expert.reviews
+/approve/:id (PATCH)- append id from middleware into post.reviews.approved
+/disapprove/:id (PATCH)- append id from middleware into post.reviews.disapproved
+
+Articles : 
+ArticleSchema:
+creator:String,
+title:String,
+tags:String,
+description:String,
+likes:[String],
+comments:[String],
+createdAt:Date

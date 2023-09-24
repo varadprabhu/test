@@ -1,0 +1,241 @@
+url: https://vruksha-onrender.com/v1/
+
+AUTH
+Page: After succesful firebase auth
+apiUrl: ${url}auth/
+method:POST 
+headers: {
+"Content-Type" : "application/json"
+}
+body : {
+uid,
+providerData,
+date
+}
+response: {
+authToken --->set this token in sharedPreferences
+}
+
+Page: ExpertVerify (onClick "verify my details")
+apiUrl: ${url}/auth/expert/
+method: POST
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body : {
+name, qualification, email, experience, aadhar number, expertise, date
+}
+response: {
+type: expert -->set type=expert in sharedPreferences
+}
+
+COMMENTS
+
+Page: CommentSection (PostView)
+apiUrl: ${url}/post/comments/{postId}
+method: POST
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body: {
+message, date
+}
+response : {
+comments(array of comments)
+}
+
+Page: CommentSection (PostView)
+apiUrl: ${url}/post/comments/{postId}
+method: GET
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body: {
+message, date
+}
+response : {
+comments(array of comments)
+}
+
+Page: CommentSection (ArticleView)
+apiUrl: ${url}/article/comments/{articleId}
+method: GET
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+response : {
+comments (array of comments)
+}
+
+Page: CommentSection (when a comment is liked)
+apiUrl: ${url}/comment/like/${commentId}
+method: 
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body : {
+-
+}
+
+Page: CommentSection (when a comment is unliked)
+apiUrl: ${url}/comment/unlike/${commentId}
+method: 
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body : {
+-
+}
+
+
+POSTS
+Page: HOME- PostsPage
+apiUrl: ${url}/post/
+method: GET
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+response : {
+posts (array of posts)
+}
+
+Page: HOME - PostsPage (when user enters a word in search bar)
+apiUrl: ${url}/post/filter/${searchedTerm}
+method: GET
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+response : {
+posts (array of posts)
+}
+
+Page:PostView (when liked)
+apiUrl: ${url}/post/like/{postId}
+method: PATCH
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body : {
+-
+}
+
+Page:PostView (when unliked)
+apiUrl: ${url}/post/unlike/{postId}
+method: PATCH
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body : {
+-
+}
+
+Page:PostView (when expert approves)
+apiUrl: ${url}/post/approve/{postId}
+method: PATCH
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body : {
+-
+}
+Page:PostView(when expert disapproves)
+apiUrl: ${url}/post/disapprove/{postId}
+method: PATCH
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body : {
+-
+}
+
+Page:PostMaking(onClick "send for analysis")
+apiUrl: ${url}/post/
+method: POST
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body : {
+image, description, date
+}
+
+ARTICLES
+Page: ArticlePage
+apiUrl: ${url}/article/
+method: GET
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+response : {
+articles (array of articles)
+}
+
+Page: ArticleView (when liked)
+apiUrl: ${url}/article/like/{postId}
+method: PATCH
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body : {
+-
+}
+
+Page:ArticleView (when unliked)
+apiUrl: ${url}/article/unlike/{postId}
+method: PATCH
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body : {
+-
+}
+
+Page: ArticlesPage (when user enters a word in search bar)
+apiUrl: ${url}/article/filter/${searchedTerm}
+method: GET
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+response : {
+articles (array of articles)
+}
+
+Page: ArticleMaking(onClick publish articles)
+apiUrl: ${url}/article/
+method: POST
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+body : {
+title, description, tag, date
+}
+
+PROFILE
+Page: ProfilePage
+apiUrl: ${url}/profile/
+method: GET
+headers: {
+"Content-Type" : "application/json"
+"authToken" : token
+}
+response : {
+if user is expert -> reviews, articles (both are arrays)
+if normal user -> posts
+}
