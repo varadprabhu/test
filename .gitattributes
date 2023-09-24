@@ -1,0 +1,5 @@
+controllers/models/corn_model.h5 filter=lfs diff=lfs merge=lfs -text
+controllers/models/crop_model.h5 filter=lfs diff=lfs merge=lfs -text
+controllers/models/potato_model.h5 filter=lfs diff=lfs merge=lfs -text
+controllers/models/rice_model.h5 filter=lfs diff=lfs merge=lfs -text
+controllers/models/wheat_model.h5 filter=lfs diff=lfs merge=lfs -text
